@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thought Scriber </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            background-image: url("{% static 'images/background.png' %}"); 
+            background-size: cover;
+            background-position: center;
+        }
+        .container {
+            text-align: center;
+        }
+        #start-record-btn, #stop-record-btn {
+            margin: 10px;
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #transcription-result {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 300px;
+            height: 100px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+        }
+
+        #refresh-btn {
+            margin: 10px;
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        h1 {
+            margin-bottom: 5px;
+        }
+        p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ThoughtScriber</h1>
+        <p>A demo web app to transcribe your speech.</p>
+        <!-- CSRF Token in the form -->
+        <form id="speech-form">
+            {% csrf_token %}
+            <button type="button" id="start-record-btn">Start Recording</button>
+            <button type="button" id="stop-record-btn" disabled>Stop Recording</button>
+            <button type="button" id="refresh-btn">Refresh</button>
+        </form>
+
+        </div>
+        <div id="transcription-result">
+            <!-- Transcription results -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+       
+            let mediaRecorder;
+            let audioChunks = [];
+
+            const startRecordBtn = document.getElementById("start-record-btn");
+            const stopRecordBtn = document.getElementById("stop-record-btn");
+
+            startRecordBtn.addEventListener("click", startRecording);
+            stopRecordBtn.addEventListener("click", stopRecording);
+
+            function startRecording() {
+                navigator.mediaDevices.getUserMedia({ audio: true })
+                    .then(stream => {
+                        mediaRecorder = new MediaRecorder(stream);
+                        mediaRecorder.ondataavailable = event => {
+                            audioChunks.push(event.data);
+                        };
+
+                        mediaRecorder.start();
+
+                        startRecordBtn.disabled = true;
+                        stopRecordBtn.disabled = false;
+                    })
+                    .catch(e => console.error(e));
+            }
+
+
+            function stopRecording() {
+                console.log("Stop recording clicked");
+                console.log("MediaRecorder state:, mediaRecorder.state")
+
+                mediaRecorder.stop();
+                startRecordBtn.disabled = false;
+                stopRecordBtn.disabled = true;
+
+
+                    mediaRecorder.onstop = async () => {
+                        console.log("Recording stopped, processing...")
+
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/mp3' });
+                    const audioUrl = URL.createObjectURL(audioBlob);
+
+                    try {
+                        const formData = new FormData();
+                        formData.append('audio_file', audioBlob, 'recording.mp3');
+
+
+                        // Retrieve CSRF token
+                        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+                        const response = await fetch('/transcribe/', {
+                            method: 'POST',
+                            body: formData,
+                            headers: { 'X-CSRFToken': csrfToken }
+                        });
+
+                        if (response.ok) {
+                            const data = await response.json();
+                            console.log('Server response:', data);
+
+                            // Display the transcription
+                            displayTranscriptionResult(data); 
+
+                        } else {
+                            console.error('Upload failed:', response.status, response.statusText);
+                            displayError('Failed to transcribe audio.');
+                        }
+                    } catch (error) {
+                        console.error('Error in sending the audio file:', error);
+                        displayError('An error occurred while processing your request.');
+                    }
+                };
+            }
+
+            function displayTranscriptionResult(data) {
+                const resultContainer = document.getElementById('transcription-result');
+                if (data.transcription && data.transcription.length > 0) {
+                     // Join the array of transcriptions into a single string, separated by line breaks
+                    const transcriptionText = data.transcription.join('<br>');
+                    resultContainer.innerHTML = `<p>Transcription: ${data.transcription.join('<br>')}</p>`;
+                } else {
+                    resultContainer.innerHTML = '<p>No transcription available.</p>';
+                }
+            }
+
+            function displayError(message) {
+                const resultContainer = document.getElementById('transcription-result');
+                resultContainer.innerHTML = `<p>Error: ${message}</p>`;
+            }
+
+
+                
+            // Refresh button event listener
+            document.getElementById('refresh-btn').addEventListener('click', function() {
+                window.location.reload(); 
+            });
+
+
+        });
+
+    </script>
+</body>
+</html>
+
