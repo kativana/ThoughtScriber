@@ -1,1 +1,3 @@
-web: gunicorn ThoughtScriberProject.wsgi --log-file -
+web: gunicorn ThoughtScriberProject.wsgi:application --log-file -
+
+
