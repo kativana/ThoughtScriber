@@ -4,3 +4,4 @@ django_heroku==0.3.1
 google-cloud-speech==2.23.0
 google-auth==2.27.0
 djangorestframework==3.14.0
+gunicorn
