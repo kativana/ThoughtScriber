@@ -14,24 +14,43 @@ from pathlib import Path
 import os
 import django_heroku
 import logging.config
+import dj_database_url
+import json
+import base64
+from dotenv import load_dotenv
+
+
+# Load environment variables from .env file
+load_dotenv()
+# os.environ to access environment variables
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'default_secret_key_for_development')
+
+
+# Decoding the HEROKU Config Var of Google API credentials I added as a value back to JSON
+
+# Decode the base64 string and write it to a file
+creds_json = base64.b64decode(os.environ['GOOGLE_CREDENTIALS_BASE64'])
+creds_path = Path('google-creds.json')
+creds_path.write_bytes(creds_json)
+
+# Now point GOOGLE_APPLICATION_CREDENTIALS to the path of that file
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = str(creds_path)
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-2%d(m6pqob^z@&7zv5f4gsd_mdwdn$ck3d^25t)zcfb@5@d_3+'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['thought-scriber.herokuapp.com']
 
 # Application definition
 
@@ -81,13 +100,10 @@ WSGI_APPLICATION = 'ThoughtScriberProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
+DATABASES = {
+    'default': dj_database_url.config(default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}", conn_max_age=600, ssl_require=True)
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -123,7 +139,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
