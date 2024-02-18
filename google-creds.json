@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "lofty-complex-412713",
+  "private_key_id": "8713abbe89902b8d8c2b01834a43a013d6b72e83",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCkyoG0L1RsIf1m\nX8JgKP4H90pXBp8PplTby5eVIcyTc1m1/5Eqgobn+vuuQUfYHx0VU7i23MWWjnzq\neP/DvExuY3LJGQ0jSAdSub9vc9lRJWe7PFMqrHC5gcZ1z4MBdLmU5JPuCeGMwca0\nvQ/gqMrBVRyDHizCdPxpUzdejwmJzz5G6X7wstlHGeB7IHaCCqfvtS1fqjDFJchb\nP818uw9wMGP/KtVKgwwz5NnGz1pPLxJSU/nhqD/wpRvclDL+U7bj2D1I0MCWYUI3\nl3zbEAUwOe6LCPcA/gz7kNJnb6aW2oP+9l+2bTZkMts/1LvL4tO9HuebOAXD84Ga\n11Y4UeJ5AgMBAAECggEAMA91g4D4PK8vEa/k5xmdeOJI1peyRSSsBAxdEZvxZ6GR\nLPCzvDOkN7ztsRUN6HyuhT1NFlvN7opw6QtQAJyGp/0uCXNabws/Q4OzzsP5Qd7I\nYYWG9d+j4p50LIDQQtjxlPiTIi3Uj7ImCylGm61usLLrZVwkDrSCtw8Ti2rpC70j\nFqcTGUlLXdtK8VNxgzi7RQ7GpMfFqJx+spskQQIlNlEYAGIgPMOLfTRq8qNSGmus\nn9ArdBVF7AdpC/mRLL7VkA4kfKE7xCBA3V4nT5a+TvZtYXEHnKuIve5j2dN2Bim1\n13Y+xobLne9bODOtXH0r0VCdA8RonEPMzBCJ8mV/FwKBgQDVXFln8qVFBLIdMDge\nLTEw98PRvbIpEIklGK2v6TUDkHRhdwB9yFJF0Hm3sL5yFWsPVtbQnsJLqFMdKpJi\nwAWanawr+ubpxTV22IoLt3Kstw275AaMgll2pu54OexNcAFBQogXbz+rjx7+ae/j\nrMYfiQHFibmoyXrhT2WShuZ+8wKBgQDFuU4wh4AXz18iIbJgnPwKZUEx52jVGxP/\nfoXjlGOMSwN+jsDdcmAhsI+D2IuYvo201k+SffYZqQLwDr5M9goX3nt1QfhTZnTq\n1NfKi5vtX++RGYGnulfgSnriTuY6o6lDr0ii4Duw2OG6YSfyGKmif1BCTvpxn1eC\nbANoNxGr4wKBgQDD8y2VXu7UJUzjq65OYJjl7RbloP9n4WzjKfgSL+7lWBzaim1k\nF78fqSiwQF2X7v3FN67QKI4u5+d1SOzqToqXBqniNmsuVVUV0iduPUvPPcsaPYCa\nOPirFQK8Xg4czHoKkmzkgOKL0ETZyTds9Pd8bNq4rhVZ47i8Bqw1VzmHawKBgAac\nNlf6/7ZMEYMjm0INnYN/dRmFAgU13YpKIZHFMTrMezZs8Ve17i7SJ0oiIDCgFj64\nd3qPSX38H4QFCimqhBXeM0RtSy8GmtwK95fm6PSbo3e3YZVI7o0qEEemmZ3WQN9p\nacVAN96msY04mExItMsg9H7zAv5vdE6A6/A8/xM/AoGAS8VxFhIkoxxsQObyhq/E\n/N6nNlFXQRnybIfcEvPpYK2gJygLQ6R5a6okfVEvccOmB83acDG/edn/0hEjBRst\nZSZxiqsXob0Menmf+QCSxNacYUSd3XMRzLrEDq+o/LdjmbV57r+qaIQItveW3AfQ\n+G6e2sHy1EMy3fDUEtSkbgo=\n-----END PRIVATE KEY-----\n",
+  "client_email": "ivaninportfolioapp@lofty-complex-412713.iam.gserviceaccount.com",
+  "client_id": "102906208790395605504",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ivaninportfolioapp%40lofty-complex-412713.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
